@@ -22,12 +22,26 @@
             cols="12"
             md="3"
           >
-            <v-card height="400" width="400">
-             <v-img  float="left" class="image"  fluid :src="art.thumbnail.lqip"></v-img>
-              {{art.title}}
-              
+            <v-card outlined>
+            <v-list-item three-line>
+              <v-list-item-content>     
+                <div class="art-title">{{ art.title }}</div>
+                <v-list-item-title class="headline mb-1">
+                
+                </v-list-item-title>
+                <v-list-item-subtitle
+                  >{{ art.thumbnail.alt_text}}</v-list-item-subtitle
+                >
+                
+              </v-list-item-content>
 
-              
+              <v-list-item-avatar
+                tile
+                size="80"
+                color="grey">
+                <v-img  float="left" class="image"  fluid :src="art.thumbnail.lqip"></v-img>
+              </v-list-item-avatar>
+            </v-list-item>
             </v-card>
           </v-col>
         </v-row>
@@ -64,7 +78,7 @@ created() {
   
   methods: {
     getData() {
-      let api = "https://api.artic.edu/api/v1/artworks"
+      let api = "https://api.artic.edu/api/v1/artworks/search"
       this.axios.get(api, {
         params: {
           'page': this.page,
@@ -74,7 +88,7 @@ created() {
   console.log(response.data)
   this.arts = response.data.data
   this.totalArts = response.data.pagination.total
-  this.total_pages=response.data.pagination.total_pages
+  this.totalpages=response.data.pagination.total_pages
   
       })
     },
@@ -126,5 +140,11 @@ created() {
   margin-left: auto;
   margin-right: auto;
   
+}
+.art-title{
+ overflow: hidden;
+ display: -webkit-box;
+ -webkit-line-clamp: 1;
+ -webkit-box-orient: vertical;
 }
 </style>
